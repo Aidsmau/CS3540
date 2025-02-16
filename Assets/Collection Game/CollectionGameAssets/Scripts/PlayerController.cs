@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
 
     void Jump() 
     {
-        if(Imput.GetKeyDown(KeyCode.Space) && isGrounded)
+        if(Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
@@ -47,5 +47,10 @@ public class PlayerController : MonoBehaviour
     void OnCollisionEnter(Collision collison)
     {
         ContactPoint contact = collison.contacts[0];
+
+        if(contact.normal.y > 0.5f)
+        {
+            isGrounded = true;
+        }
     }
 }
