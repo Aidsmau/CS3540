@@ -1,12 +1,19 @@
 using UnityEngine;
+using Unity.VisualScripting;
+using UnityEngine.Scripting.APIUpdating;
 
+
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(AudioSource))]
 public class PlayerController : MonoBehaviour
 {
 
     Rigidbody rb;
     public float speed = 5f;
     public float jumpForce = 5f;
-    public bool isGrounded;
+    private bool isGrounded;
+
+    public AudioClip jumpSFX;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -36,8 +43,11 @@ public class PlayerController : MonoBehaviour
 
     void Jump() 
     {
+
+
         if(Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
+            PlaySound();
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
         }
@@ -51,6 +61,14 @@ public class PlayerController : MonoBehaviour
         if(contact.normal.y > 0.5f)
         {
             isGrounded = true;
+        }
+    }
+
+    void PlaySound() {
+        if(jumpSFX) {
+        var audioSource = GetComponent<AudioSource>();
+        audioSource.clip = jumpSFX;
+        audioSource.Play();
         }
     }
 }

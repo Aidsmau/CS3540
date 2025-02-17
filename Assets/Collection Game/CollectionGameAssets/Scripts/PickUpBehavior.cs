@@ -10,6 +10,8 @@ public class PickUpBehavior : MonoBehaviour
     public int scoreValue = 1;
 
     public static int totalScore = 0;
+
+    public AudioClip pickUpSFX;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -32,7 +34,19 @@ public class PickUpBehavior : MonoBehaviour
     }
 
     void DestroyPickUp() {
-        pickUpCount--;
+        totalScore += scoreValue;
+        PlayAudioEffect();
         Destroy(gameObject);
+    }
+
+    void OnDestroy() {
+        pickUpCount--;
+        if(pickUpCount <= 0) {
+            Debug.Log("You win!");
+        }
+    }
+
+    void PlayAudioEffect() {
+        AudioSource.PlayClipAtPoint(pickUpSFX, Camera.main.transform.position);
     }
 }
