@@ -5,6 +5,17 @@ TagManager:
   serializedVersion: 3
   tags:
   - Sun
+  - Reducto
+  - Dementor
+  - Protego
+  - Projectile
+  - Bullet
+  - Enemy
+  - Target
+  - Bludger
+  - Chest
+  - RoomManager
+  - Quaffle
   layers:
   - Default
   - TransparentFX
