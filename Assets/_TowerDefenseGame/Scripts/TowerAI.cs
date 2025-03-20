@@ -22,12 +22,19 @@ public class TowerAI : MonoBehaviour
     public int health = 100;
     public GameObject destroyPrefab;
 
+    bool isTowerDead = false;
+
+    [Header("General Settings")]
+    public GameObject buildPrefab;
+
+
 
     Transform target;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        if(buildPrefab)
+                Instantiate(buildPrefab, transform.position,transform.rotation);
     }
 
     // Update is called once per frame
@@ -117,13 +124,25 @@ public class TowerAI : MonoBehaviour
 
     public void TakeDamage(int damage){
         health -= damage;
+
+        if (health <= 0)
+        {
+            currentState = TowerState.Die;
+        }
     }
 
     void Die() {
-        Debug.Log("State: Die");
-        if(health <= 0) {
+        if(isTowerDead)
+            return;
 
-        }
+        Debug.Log("State: Die");
+
+        if(destroyPrefab)
+          Instantiate(destroyPrefab, transform.position, transform.rotation);
+        isTowerDead = true;
+        Destroy(gameObject, 1);
+        
+        
     }
 }
 
