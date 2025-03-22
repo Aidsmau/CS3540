@@ -144,5 +144,12 @@ public class TowerAI : MonoBehaviour
         
         
     }
+
+    private void OnCollisionEnter(Collision other) {
+        if(other.transform.CompareTag("EnemyBullet")) {
+            var bulletBehavior = other.gameObject.GetComponent<BulletBehavior>();
+            TakeDamage(bulletBehavior.ReturnBulletDamage());
+        }
+    }
 }
 

@@ -45,4 +45,8 @@ public class BulletBehavior : MonoBehaviour
             Instantiate(bulletHitPrefab, pos, Quaternion.identity);
         }
     }
+
+    public int ReturnBulletDamage(){
+        return damage;
+    }
 }
