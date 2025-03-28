@@ -84,7 +84,8 @@ public class EnemyAI : MonoBehaviour
         turret.rotation = Quaternion.Slerp(turret.rotation, lookRotation, rotationSpeed * Time.deltaTime);
 
         if(fireCooldown <= 0) {
-            Shoot(); 
+            if(HasLineOfSight(attackTarget)) 
+                Shoot(); 
             fireCooldown = 1f / fireRate;  
         }
 
@@ -165,4 +166,20 @@ public class EnemyAI : MonoBehaviour
             TakeDamage(bulletBehavior.ReturnBulletDamage());
         }
     }
+
+    bool HasLineOfSight(Transform target)
+    {
+        RaycastHit hit;
+        Vector3 direction = (target.position - transform.position).normalized;
+        if (Physics.Raycast(firePoint.position, direction, out hit, range))
+        {
+            if (hit.collider.CompareTag("Tower"))
+            {
+                Debug.Log("Tower in sight");
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
