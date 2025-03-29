@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class EnemyAI : MonoBehaviour
     [Header("General Settings")]
     public EnemyState currentState = EnemyState.Navigate;
     public Transform targetBase;
+
+    public Slider healthSlider;
+    public int baseDamageAmount = 10;
 
     [Header("Navigation Settings")]
     public Transform turret;
@@ -33,12 +37,22 @@ public class EnemyAI : MonoBehaviour
     bool isEnemyDead = false;
 
     Quaternion originalTurretRotation;
+    int maxHealth;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         if(turret)
             originalTurretRotation = turret.localRotation;
+
+        maxHealth = health;
+        targetBase = GameObject.FindGameObjectWithTag("Target").transform;
+
+        if(healthSlider){
+            healthSlider.maxValue = maxHealth;
+            healthSlider.value = health;
+        }
+
         
     }
 
@@ -116,17 +130,22 @@ public class EnemyAI : MonoBehaviour
         if(destroyPrefab)
           Instantiate(destroyPrefab, transform.position, transform.rotation);
         isEnemyDead = true;
-        Destroy(gameObject, 1);
-        
         agent.isStopped = true;
+
+        Destroy(gameObject);
+        
+        
         
     }
 
     public void TakeDamage(int damage){
         health -= damage;
-
+        if(healthSlider)
+            healthSlider.value = health;
+        
         if (health <= 0)
         {
+            health = 0;
             currentState = EnemyState.Die;
         }
     }
@@ -180,6 +199,10 @@ public class EnemyAI : MonoBehaviour
             }
         }
         return false;
+    }
+
+    public int GetEnemyDamageValue() {
+        return baseDamageAmount;
     }
 
 }
