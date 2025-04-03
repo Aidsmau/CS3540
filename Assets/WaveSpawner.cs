@@ -19,7 +19,7 @@ public class WaveSpawner : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        currentWaveIndex = PlayerPrefs.GetInt("LastWave", 0);
+        //currentWaveIndex = PlayerPrefs.GetInt("LastWave", 0);
         StartCoroutine(ReleaseWaves());
     }
 
