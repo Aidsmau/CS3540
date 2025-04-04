@@ -17,11 +17,17 @@ public class TileBehavior : MonoBehaviour
     }
 
     void OnMouseOver() {
+        if (!TowerBuilder.Instance.HasTowerSelected())
+            return;
         HighlightTile();
     }
 
     void OnMouseExit() {
-        if(!tileTower)
+        if (!TowerBuilder.Instance.HasTowerSelected())
+            return;
+
+
+        if (!tileTower)
         {
             renderer.sharedMaterial = originalMat;
         }
@@ -29,10 +35,14 @@ public class TileBehavior : MonoBehaviour
 
     void OnMouseDown() {
         if(!tileTower)
-        {if(towerPrefab)
+        {
+            if(TowerBuilder.Instance.HasTowerSelected())
             {
+                GameObject towerPrefab = TowerBuilder.Instance.GetSelectedTower();
                 var tower = Instantiate(towerPrefab, transform.parent.position, transform.parent.rotation);
                 tileTower = tower;
+
+                TowerBuilder.Instance.ClearSelection();
             }
         }
     }
