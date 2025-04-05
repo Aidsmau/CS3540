@@ -596,6 +596,7 @@ MonoBehaviour:
   targetBase: {fileID: 0}
   healthSlider: {fileID: 7612599482136255397}
   baseDamageAmount: 20
+  reward: 2
   turret: {fileID: 8505370626030064319}
   rotationSpeed: 30
   range: 5

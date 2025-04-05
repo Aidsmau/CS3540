@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
+using TMPro;
 
 public class WaveSpawner : MonoBehaviour
 {
@@ -14,7 +16,9 @@ public class WaveSpawner : MonoBehaviour
     
     public Wave[] waves;
     public float timeBetweenWaves = 5f;
-    public int currentWaveIndex = 0;
+    public TMP_Text waveText;
+    int currentWaveIndex = 0;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -31,6 +35,7 @@ public class WaveSpawner : MonoBehaviour
 
     IEnumerator ReleaseWaves() {
         while(currentWaveIndex < waves.Length) {
+            UpdateWaveText();
             yield return new WaitForSeconds(timeBetweenWaves);
             yield return StartCoroutine(SpawnWave(waves[currentWaveIndex]));
 
@@ -59,6 +64,12 @@ public class WaveSpawner : MonoBehaviour
     bool AreAllEnemiesDead() {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         return enemies.Length == 0;
+    }
+
+    void UpdateWaveText(){
+        if(waveText){
+            waveText.text = (currentWaveIndex + 1).ToString() + " / " + (waves.Length).ToString();
+        }
     }
 
 }

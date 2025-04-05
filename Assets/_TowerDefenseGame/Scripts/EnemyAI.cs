@@ -15,6 +15,7 @@ public class EnemyAI : MonoBehaviour
 
     public Slider healthSlider;
     public int baseDamageAmount = 10;
+    public int reward = 1;
 
     [Header("Navigation Settings")]
     public Transform turret;
@@ -131,7 +132,7 @@ public class EnemyAI : MonoBehaviour
           Instantiate(destroyPrefab, transform.position, transform.rotation);
         isEnemyDead = true;
         agent.isStopped = true;
-
+        MoneyManager.Instance.EarnMoney(reward);   
         Destroy(gameObject);
         
         

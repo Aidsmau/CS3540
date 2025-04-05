@@ -4,7 +4,13 @@ using UnityEngine;
 public class TowerBuilder : MonoBehaviour
 {
 
-    public GameObject[] towers;
+    [System.Serializable]
+    public class Tower{
+        public string name;
+        public GameObject towerPrefab;
+        public int cost;
+    }
+    public Tower[] towers;
     int selectedTowerIndex = 0;
     bool selectedTower = false;
 
@@ -46,7 +52,15 @@ public class TowerBuilder : MonoBehaviour
 
     public GameObject GetSelectedTower()
     {
-        return towers[selectedTowerIndex];
+        return towers[selectedTowerIndex].towerPrefab;
+    }
+
+    public int GetSelectedTowerCost(){
+        return towers[selectedTowerIndex].cost;
+    }
+
+    public int GetSelectedTowerCost(int index){
+        return towers[index].cost;
     }
 
     public bool HasTowerSelected()

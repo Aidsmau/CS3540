@@ -37,12 +37,18 @@ public class TileBehavior : MonoBehaviour
         if(!tileTower)
         {
             if(TowerBuilder.Instance.HasTowerSelected())
-            {
-                GameObject towerPrefab = TowerBuilder.Instance.GetSelectedTower();
+            {   
+                if(MoneyManager.Instance.BuyTower(TowerBuilder.Instance.GetSelectedTowerCost()))
+                {
+                    GameObject towerPrefab = TowerBuilder.Instance.GetSelectedTower();
                 var tower = Instantiate(towerPrefab, transform.parent.position, transform.parent.rotation);
                 tileTower = tower;
 
                 TowerBuilder.Instance.ClearSelection();
+                }
+                else {
+                    Debug.LogWarning("Can not afford selected tower.");
+                }
             }
         }
     }
