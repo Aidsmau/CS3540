@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class TargetBehavior : MonoBehaviour
@@ -27,6 +28,7 @@ public class TargetBehavior : MonoBehaviour
         {
             Debug.Log("Game Over");
             health = 0;
+            GameLost();
         }
     }
 
@@ -38,5 +40,11 @@ public class TargetBehavior : MonoBehaviour
         }
 
         Destroy(other.gameObject);
+    }
+
+    void GameLost()
+    {
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
