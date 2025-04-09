@@ -298,6 +298,8 @@ MonoBehaviour:
   currentState: 0
   targetBase: {fileID: 0}
   healthSlider: {fileID: 6740403778931974293}
+  baseDamageAmount: 10
+  reward: 1
   turret: {fileID: 0}
   rotationSpeed: 30
   range: 0

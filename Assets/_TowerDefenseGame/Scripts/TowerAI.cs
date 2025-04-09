@@ -16,6 +16,7 @@ public class TowerAI : MonoBehaviour
     public Transform firePoint;
     public float fireRate = 2;
 
+
     float fireCooldown = 0;
 
     [Header("Death Settings")]
@@ -29,7 +30,7 @@ public class TowerAI : MonoBehaviour
 
 
 
-    Transform target;
+    [SerializeField] Transform target;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -149,7 +150,7 @@ public class TowerAI : MonoBehaviour
         {
             if(hit.collider.CompareTag("Enemy"))
             {
-                Debug.Log("Enemy in sight");
+                Debug.Log("Enemy in sight: " + hit.collider.name);
                 return true;
             }
         }
